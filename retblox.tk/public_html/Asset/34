@@ -1,0 +1,21 @@
+
+function onChatted(msg, speaker) --This makes this a command.
+    
+  source = string.lower(speaker.Name)
+  msg = string.lower(msg)
+
+  if (msg == ";ec")then --If you want to say something different to reset, just change the word inside of the quotes.
+    while speaker.Character==nil do wait(1) end
+    local hum=speaker.Character:findFirstChild("Humanoid") --This makes sure it's a humanoid.
+    if hum~=nil then
+      hum.Health=0 --This kills the player.
+
+    end
+  end
+end
+
+function onPlayerEntered(newPlayer) --This makes it so everyone has this command.
+  newPlayer.Chatted:connect(function(msg) onChatted(msg, newPlayer) end) 
+end
+ 
+game.Players.ChildAdded:connect(onPlayerEntered)
